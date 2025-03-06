@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Function to set console color
+void setColor(int color) {
+    printf("\033[%dm", color);
+}
+
+// Function to reset color
+void resetColor() {
+    printf("\033[0m");
+}
+
+int main() {
+    double num1, num2, result;
+    char op;
+
+    while (1) {
+        system("clear"); // Use "cls" for Windows
+        setColor(36);
+        printf("\n===========================\n");
+        printf("      NAHIN'S Calculator    \n");
+        printf("===========================\n\n");
+        resetColor();
+
+        setColor(33);
+        printf("Enter first number: ");
+        resetColor();
+        scanf("%lf", &num1);
+
+        setColor(35);
+        printf("Enter operator (+, -, *, /): ");
+        resetColor();
+        scanf(" %c", &op);
+
+        setColor(33);
+        printf("Enter second number: ");
+        resetColor();
+        scanf("%lf", &num2);
+
+        switch (op) {
+            case '+': result = num1 + num2; break;
+            case '-': result = num1 - num2; break;
+            case '*': result = num1 * num2; break;
+            case '/':
+                if (num2 != 0)
+                    result = num1 / num2;
+                else {
+                    setColor(31);
+                    printf("Error! Division by zero is not allowed.\n");
+                    resetColor();
+                    continue;
+                }
+                break;
+            default:
+                setColor(31);
+                printf("Invalid operator!\n");
+                resetColor();
+                continue;
+        }
+
+        setColor(32);
+        printf("\nResult: %.2lf\n", result);
+        resetColor();
+
+        setColor(34);
+        printf("\nPress Enter to continue or type 'q' to quit: ");
+        resetColor();
+        char choice = getchar(); // Consume newline
+        choice = getchar();
+        if (choice == 'q' || choice == 'Q') break;
+    }
+
+    return 0;
+}
